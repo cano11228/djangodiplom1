@@ -1,0 +1,53 @@
+services:
+  web:
+    build:
+      context: ./ProjectA
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./ProjectA:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DJANGO_SETTINGS_MODULE=ProjectA.settings
+      - DEBUG=1
+      - DB_NAME=mydatabase
+      - DB_USER=postgres
+      - DB_PASSWORD=19960812
+      - DB_HOST=db
+      - DB_PORT=5432
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+
+  frontend:
+    build:
+      context: ./projectb
+      dockerfile: Dockerfile
+    volumes:
+      - ./projectb:/app
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    environment:
+      - NODE_ENV=production
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 19960812
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
