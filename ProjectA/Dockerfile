@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY .. .
+COPY manage.py /app/
+COPY requirements.txt /app/
+COPY ProjectA /app/ProjectA/
 
 RUN pip install --no-cache-dir -r requirements.txt
 

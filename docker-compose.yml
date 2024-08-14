@@ -1,8 +1,8 @@
 services:
   web:
     build:
-      context: ./ProjectA
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ProjectA/Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./ProjectA:/app
@@ -14,14 +14,13 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=ProjectA.settings
       - DEBUG=1
-      - DB_NAME=mydatabase
+      - DB_NAME=db_diplom
       - DB_USER=postgres
       - DB_PASSWORD=19960812
       - DB_HOST=db
       - DB_PORT=5432
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-
   frontend:
     build:
       context: ./projectb
@@ -38,7 +37,7 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_DB: mydatabase
+      POSTGRES_DB: db_diplom
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 19960812
     volumes:
