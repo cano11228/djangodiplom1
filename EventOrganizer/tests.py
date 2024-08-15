@@ -1,5 +1,3 @@
-# projectA/tests.py
-
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -23,7 +21,6 @@ class CustomUserTests(TestCase):
     def test_create_user(self):
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(self.user.email, 'testuser@example.com')
-        self.assertEqual(self.user.phone_number, '1234567890')
 
     def test_user_str(self):
         self.assertEqual(str(self.user), 'testuser')

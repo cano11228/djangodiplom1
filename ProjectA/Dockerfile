@@ -7,7 +7,6 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY manage.py /app/
 COPY requirements.txt /app/
 COPY ProjectA /app/ProjectA/
 
